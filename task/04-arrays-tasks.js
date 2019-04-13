@@ -38,13 +38,10 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-   const arr = new Array(len);
-   // let num = 1;
-   // for (let i=0; i<len; i++){
-   //    arr.push(num);
-   //    num = num + 2;
-   // }
-   return arr.Map();
+   let arr = new Array(len).fill(0).map((elem, index) => {
+      return 1+2*index;
+   });
+   return arr;
 }
 
 
@@ -165,8 +162,8 @@ function insertItem(arr, item, index) {
  *    [ 1, 3, 4, 5 ], 2  => [ 1, 2 ]
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'a', 'b', 'c' ]
  */
-function getHead(arr, n) {
-   throw new Error('Not implemented');
+function getHead(arr=[], n=0) {
+   return arr.slice(0, n);
 }
 
 
@@ -180,8 +177,8 @@ function getHead(arr, n) {
  *    [ 1, 3, 4, 5 ], 2  => [ 4, 5 ]
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
-function getTail(arr, n) {
-   throw new Error('Not implemented');
+function getTail(arr=[], n=0) {
+   return arr.slice(arr.length-n);
 }
 
 
@@ -220,8 +217,8 @@ function toCsvText(arr) {
  *   [ 0, 1, 2, 3, 4, 5 ] => [ 0, 1, 4, 9, 16, 25 ]
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
-function toArrayOfSquares(arr) {
-   throw new Error('Not implemented');
+function toArrayOfSquares(arr=[]) {
+   return arr.map(elem => Math.pow(elem, 2));
 }
 
 
@@ -239,8 +236,12 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0] 
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(arr) {
-   throw new Error('Not implemented');
+function getMovingSum(arr=[]) {
+   let num = 0;
+   return arr.map((elem, index) => {
+      num+=elem;
+      return num;
+   });
 }
 
 /**
@@ -254,8 +255,8 @@ function getMovingSum(arr) {
  * [ 'a', 'b', 'c' , null ]  => [ "b", null ]
  * [ "a" ] => []
  */
-function getSecondItems(arr) {
-   throw new Error('Not implemented');
+function getSecondItems(arr=[]) {
+   return arr.filter((elem, index) => index%2!=0);
 }
 
 
@@ -273,10 +274,11 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(arr) {
-   throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr=[]) {
+   return arr.map( (elem, index)=>{
+      return [elem].fill(elem, 0, index+1).join(',');
+   });
 }
-
 
 /** 
  * Returns the 3 largest numbers from the specified array
@@ -377,12 +379,7 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr=[], item) {
-   let num = 0;
-   while (arr.indexOf(item)!=-1) {
-      num++;
-      arr.splice(arr.indexOf(item), 1);
-   };
-   return num;
+   return arr.filter(elem => elem === item).length;
 }
 
 /**

@@ -146,7 +146,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str='') {
-    return str.substring(1, str.length-1);
+    return str.replace('<', '').replace('>', '');
 }
 
 
@@ -201,8 +201,8 @@ function extractEmails(str='') {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+function getRectangleString(width=0, height=0) {
+    return '┌'+'─'.repeat(width-2)+'┐\n'+('│'+' '.repeat(width-2)+'│\n').repeat(height-2)+'└'+'─'.repeat(width-2)+'┘\n';
 }
 
 
@@ -245,8 +245,8 @@ function encodeToRot13(str='') {
  *   isString(new String('test')) => true
  */
 function isString(value='') {
-    let str = value;
-    return (typeof str ==='string' && str.length>0 )?true:false;
+    let clas = Object.prototype.toString.call(value).slice(8, -1);
+    return (value !== null && value.length != 0 && clas === "String");
 }
 
 
@@ -274,8 +274,15 @@ function isString(value='') {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(value) {
-    throw new Error('Not implemented');
+function getCardId(value='') {
+    let card = [
+        'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+        'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+        'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+        'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
+    ];
+    return card.indexOf(value);
+
 }
 
 
