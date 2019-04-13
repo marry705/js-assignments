@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 /**
@@ -37,7 +37,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 
@@ -56,7 +56,7 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   return ( (date.getFullYear()%400 === 0) || ((date.getFullYear()%4 === 0) && (date.getFullYear()%100 != 0)) )?true:false;
 }
 
 
@@ -76,7 +76,11 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let h = (endDate.getHours()-startDate.getHours()<10)?'0'+(endDate.getHours()-startDate.getHours()):endDate.getHours()-startDate.getHours();
+   let min = (endDate.getMinutes()-startDate.getMinutes()<10)?'0'+(endDate.getMinutes()-startDate.getMinutes()):endDate.getMinutes()-startDate.getMinutes();
+   let sec = (endDate.getSeconds()-startDate.getSeconds()<10)?'0'+(endDate.getSeconds()-startDate.getSeconds()):endDate.getSeconds()-startDate.getSeconds();
+   let msec = (endDate.getMilliseconds()-startDate.getMilliseconds()<10)?'00'+(endDate.getMilliseconds()-startDate.getMilliseconds()):(endDate.getMilliseconds()-startDate.getMilliseconds()<100)?'0'+endDate.getMilliseconds()-startDate.getMilliseconds():endDate.getMilliseconds()-startDate.getMilliseconds();
+  return `${h}:${min}:${sec}.${msec}`;
 }
 
 
@@ -93,9 +97,14 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
-function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
-}
+function angleBetweenClockHands(date) {   
+   let min = date.getMinutes();
+   let update = Math.abs(date.getTimezoneOffset())/60;
+   let h = (date.getHours()===0)?24-update:date.getHours()-update;
+   h=(h>12)?h-12:h;
+   let deg = (Math.abs(30*h-5.5*min)>180)?360-Math.abs(30*h-5.5*min):Math.abs(30*h-5.5*min);
+   return deg*Math.PI/180;
+ }
 
 
 module.exports = {
