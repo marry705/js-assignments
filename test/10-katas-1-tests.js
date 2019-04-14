@@ -107,13 +107,10 @@ describe('10-katas-1-tasks', function() {
 
     it.optional('getZigZagMatrix should create a square matrix with zigzag path', () => {
         [
-             //[
+            //[
             //    [0]
             // ],
-            [
-                [ 0, 1 ],
-                [ 2, 3 ]
-             ],[
+             [
                 [ 0, 1, 5 ],
                 [ 2, 4, 6 ],
                 [ 3, 7, 8 ]

@@ -88,14 +88,12 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    // let arr = Array(n).fill(Array(n).fill(0));
-    // return arr.map((elem, index)=>{
-    //    return elem.map((el, i) => {
-    //     console.log(index);
-          
-    //    });
-    // });
-    throw new Error('Not implemented');
+    let arr = Array(n).fill(Array(n).fill(0));
+    return arr.map((elem, index)=>{
+       return elem.map((el, i) => {
+            return i+index;      
+       });
+    });
  }
 
 
@@ -144,7 +142,21 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    //throw new Error('Not implemented');
+    let str = String(nums[0]);
+    let acum = 0;
+    for(let i=1; i<nums.length; i++){
+        if(nums[i]-nums[i-1]!=1) {
+            if (acum!=0) {
+                str+='-'+String(acum);
+                acum = 0;
+            }
+            str+=','+String(nums[i]);
+        } 
+        else acum = nums[i]; 
+    }
+    console.log(str);
+    return str;
 }
 
 module.exports = {
