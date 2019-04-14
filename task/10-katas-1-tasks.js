@@ -145,17 +145,29 @@ function extractRanges(nums) {
     //throw new Error('Not implemented');
     let str = String(nums[0]);
     let acum = 0;
+    let step = 0;
     for(let i=1; i<nums.length; i++){
         if(nums[i]-nums[i-1]!=1) {
-            if (acum!=0) {
+            if (step>1) {
                 str+='-'+String(acum);
                 acum = 0;
+                step = 0;
+            }
+            else {
+                if (step===1) {
+                    str+=','+String(acum);
+                    acum = 0;
+                    step = 0;
+                }
             }
             str+=','+String(nums[i]);
         } 
-        else acum = nums[i]; 
+        else {
+            acum = nums[i]; 
+            step++;
+        }
     }
-    console.log(str);
+    str+= (step>1)?'-'+String(acum):','+String(acum);
     return str;
 }
 
