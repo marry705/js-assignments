@@ -88,8 +88,15 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
+    // let arr = Array(n).fill(Array(n).fill(0));
+    // return arr.map((elem, index)=>{
+    //    return elem.map((el, i) => {
+    //     console.log(index);
+          
+    //    });
+    // });
     throw new Error('Not implemented');
-}
+ }
 
 
 /**

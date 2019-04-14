@@ -65,13 +65,11 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom(...args) {
-    const examp = (x) => {
-        args.reverse();
-        args.forEach( (elem, index) => {
-            return Math.pow(x, index)*elem;
-        });
+    args.reverse();
+    const polynom = (x, index = 0) => {
+        return index<args.length?args[index]*Math.pow(x, index)+polynom(x, ++index):0;
     }
-    return (args.length)?examp:null;
+    return args.length?polynom:null;
 }
 
 
@@ -90,7 +88,11 @@ function getPolynom(...args) {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    throw new Error('Not implemented');
+    let timer = new Map();
+    return (x) => {
+        if (!timer.has(x)) timer.set(x, func(x));
+        return timer.get(x);
+    }
 }
 
 
